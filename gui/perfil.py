@@ -1,6 +1,14 @@
 import customtkinter as ctk
 from PIL import Image, ImageTk
 
+# Color palette
+DARK_BURGUNDY = "#4A0E0E"
+LIGHT_BURGUNDY = "#800020"
+GOLD = "#FFD700"
+CREAM = "#FFFDD0"
+
+
+
 class WineAppMobileGUI:
     def __init__(self):
         ctk.set_appearance_mode("light")
@@ -10,13 +18,12 @@ class WineAppMobileGUI:
         self.root.title("Wine Enthusiast Profile")
         self.root.geometry("360x640")  # Common Android phone resolution
 
-        # Color palette inspired by wine
+        # Updated color palette with red as the primary color
         self.colors = {
-            "burgundy": "#800020",
-            "wine_red": "#722F37",
-            "cream": "#F2E8CF",
-            "cork": "#C3A98A",
-            "bottle_green": "#2C5E4C"
+            "DARK_BURGUNDY": DARK_BURGUNDY,
+            "LIGHT_BURGUNDY": LIGHT_BURGUNDY,
+            "gold": GOLD,
+            "cream": CREAM
         }
 
         self.create_widgets()
@@ -24,33 +31,32 @@ class WineAppMobileGUI:
 
     def create_widgets(self):
         # Profile Photo
-        self.photo_frame = ctk.CTkFrame(self.root, width=120, height=120, corner_radius=60, fg_color=self.colors["cork"])
+        self.photo_frame = ctk.CTkFrame(self.root, width=120, height=120, corner_radius=60, fg_color=self.colors["DARK_BURGUNDY"])
         self.photo_label = ctk.CTkLabel(self.photo_frame, text="", fg_color=self.colors["cream"])
         self.photo_label.pack(expand=True, fill="both", padx=5, pady=5)
 
         # Name
         self.name_entry = ctk.CTkEntry(self.root, placeholder_text="Your Name", 
                                        font=("Helvetica", 18), width=250, 
-                                       fg_color=self.colors["cream"], text_color=self.colors["wine_red"])
-
+                                       fg_color=self.colors["cream"], text_color=self.colors["DARK_BURGUNDY"])
         # Favorite Wine
         self.fav_wine_entry = ctk.CTkEntry(self.root, placeholder_text="Favorite Wine", 
                                            font=("Helvetica", 14), width=250, 
-                                           fg_color=self.colors["cream"], text_color=self.colors["wine_red"])
+                                           fg_color=self.colors["cream"], text_color=self.colors["DARK_BURGUNDY"])
 
         # About
         self.about_frame = ctk.CTkFrame(self.root, fg_color="transparent")
         self.about_label = ctk.CTkLabel(self.about_frame, text="About Me", 
-                                        font=("Helvetica", 16, "bold"), text_color=self.colors["burgundy"])
+                                        font=("Helvetica", 16, "bold"), text_color=self.colors["gold"])
         self.about_text = ctk.CTkTextbox(self.about_frame, wrap="word", height=80, 
                                          font=("Helvetica", 14), width=300, 
-                                         fg_color=self.colors["cream"], text_color=self.colors["wine_red"])
+                                         fg_color=self.colors["cream"], text_color=self.colors["DARK_BURGUNDY"])
         self.about_text.insert("1.0", "Share your passion for wine...")
 
         # Last Reviews
         self.reviews_frame = ctk.CTkFrame(self.root, fg_color="transparent")
         self.reviews_label = ctk.CTkLabel(self.reviews_frame, text="Recent Wine Reviews", 
-                                          font=("Helvetica", 16, "bold"), text_color=self.colors["burgundy"])
+                                          font=("Helvetica", 16, "bold"), text_color=self.colors["gold"])
         self.review1 = ctk.CTkLabel(self.reviews_frame, text="2022 Cabernet Sauvignon - Rich and full-bodied", 
                                     font=("Helvetica", 14), fg_color=self.colors["cream"], 
                                     corner_radius=8, pady=5)
@@ -61,14 +67,18 @@ class WineAppMobileGUI:
         # Buttons
         self.button_frame = ctk.CTkFrame(self.root, fg_color="transparent")
         self.add_review_button = ctk.CTkButton(self.button_frame, text="Add Review", 
-                                               fg_color=self.colors["bottle_green"], 
-                                               hover_color=self.colors["wine_red"])
+                                               fg_color=self.colors["LIGHT_BURGUNDY"], 
+                                               hover_color=self.colors["gold"])
         self.edit_profile_button = ctk.CTkButton(self.button_frame, text="Edit Profile", 
-                                                 fg_color=self.colors["burgundy"], 
-                                                 hover_color=self.colors["wine_red"])
+                                                 fg_color=self.colors["LIGHT_BURGUNDY"], 
+                                                 hover_color=self.colors["gold"])
+        self.fav_button = ctk.CTkButton(self.button_frame, text="Favorites", 
+                                fg_color=self.colors["LIGHT_BURGUNDY"], 
+                                hover_color=self.colors["gold"])
+
 
     def layout_widgets(self):
-        self.root.configure(fg_color=self.colors["cork"])
+        self.root.configure(fg_color=self.colors["DARK_BURGUNDY"])
         
         self.photo_frame.pack(pady=(30, 15))
         self.name_entry.pack(pady=10)

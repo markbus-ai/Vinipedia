@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import tkinter.messagebox as tkmb
 import re
-from inicio import WineRatingApp
+from home import WineAppHomeGUI
 import sqlite3
 
 # Select the GUI theme - dark, light, system (system default)
@@ -85,7 +85,7 @@ def login():
     if username in db_user:
         if password == db_user[username]["password"]:
             tkmb.showinfo(title="Inicio de sesión exitoso", message="Has iniciado sesión correctamente")
-            app = WineRatingApp()
+            app = WineAppHomeGUI()
             app_login.destroy()
             app.mainloop()
         else:
