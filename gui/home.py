@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from PIL import Image, ImageTk
 from perfil import WineAppMobileGUI
+from dropdown_menu import WineAppDropdownMenu
 # Paleta de colores
 DARK_BURGUNDY = "#4A0E0E"
 LIGHT_BURGUNDY = "#800020"
@@ -18,6 +19,10 @@ class WineAppHomeGUI(ctk.CTk):
         # Configura el diseño de la grilla
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
+
+        # Add the dropdown menu
+        self.dropdown_menu = WineAppDropdownMenu(self, current_page="home")
+        self.dropdown_menu.grid(row=0, column=0, sticky="nw")
 
         # Crea la barra lateral
         self.create_sidebar()
