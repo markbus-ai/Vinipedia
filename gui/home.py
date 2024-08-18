@@ -2,6 +2,8 @@ import customtkinter as ctk
 from PIL import Image, ImageTk
 from perfil import WineAppMobileGUI
 from dropdown_menu import WineAppDropdownMenu
+import os
+
 # Paleta de colores
 DARK_BURGUNDY = "#4A0E0E"
 LIGHT_BURGUNDY = "#800020"
@@ -49,6 +51,10 @@ class WineAppHomeGUI(ctk.CTk):
             button = ctk.CTkButton(sidebar, text=text, command=command, fg_color=LIGHT_BURGUNDY, hover_color=GOLD, text_color=CREAM)
             button.grid(row=i, column=0, padx=20, pady=10, sticky="ew")
 
+        # Agrega el botón de mapa de vinos
+        map_button = ctk.CTkButton(sidebar, text="Mapa de vinos", command=self.map_event, fg_color=LIGHT_BURGUNDY, hover_color=GOLD, text_color=CREAM)
+        map_button.grid(row=5, column=0, padx=20, pady=10, sticky="ew")
+
     def create_main_content(self):
         main_frame = ctk.CTkFrame(self, fg_color=CREAM)
         main_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsew")
@@ -60,7 +66,7 @@ class WineAppHomeGUI(ctk.CTk):
         search_frame.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
         search_entry = ctk.CTkEntry(search_frame, placeholder_text="Buscar por: nombre, cepa, bodega, región, añada", fg_color=CREAM, text_color=DARK_BURGUNDY)
         search_entry.pack(side="left", expand=True, fill="x", padx=(10, 10))
-        search_button = ctk.CTkButton(search_frame, text="Buscar", width=100,fg_color=GOLD, hover_color=DARK_BURGUNDY, text_color=DARK_BURGUNDY)
+        search_button = ctk.CTkButton(search_frame, text="Buscar", width=100, fg_color=GOLD, hover_color=DARK_BURGUNDY, text_color=DARK_BURGUNDY)
         search_button.pack(side="right", padx=(0, 10), pady=10)
 
         # Contenido principal (placeholder para la información del vino)
@@ -81,10 +87,6 @@ class WineAppHomeGUI(ctk.CTk):
         self.destroy()
         self.__init__()
 
-    def guided_tasting_event(self):
-        print("Botón de cata guiada presionado")
-
-
     def profile_event(self):
         profile = WineAppMobileGUI()
         profile.run()
@@ -101,8 +103,8 @@ class WineAppHomeGUI(ctk.CTk):
     def view_info_event(self):
         print("Botón de ver información del vino presionado")
 
-    def buy_event(self):
-        print("Botón de comprar presionado")
+    def map_event(self):
+        os.system("python gui/mapa.py")  # Ruta actualizada para ejecutar mapa.py en la carpeta gui
 
 if __name__ == "__main__":
     app = WineAppHomeGUI()
