@@ -89,6 +89,7 @@ class WineAppHomeGUI(ctk.CTk):
 
     def profile_event(self):
         profile = WineAppMobileGUI()
+        self.destroy()
         profile.run()
 
     def upload_opinion_event(self):
@@ -104,7 +105,7 @@ class WineAppHomeGUI(ctk.CTk):
         print("Botón de ver información del vino presionado")
 
     def map_event(self):
-        os.system("python gui/mapa.py")  # Ruta actualizada para ejecutar mapa.py en la carpeta gui
+        os.system("python3 gui/mapa.py")  # Ruta actualizada para ejecutar mapa.py en la carpeta gui
 
 if __name__ == "__main__":
     app = WineAppHomeGUI()
