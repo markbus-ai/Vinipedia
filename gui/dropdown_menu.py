@@ -2,6 +2,7 @@ import customtkinter as ctk
 import importlib
 import inspect
 
+
 # Color palette
 DARK_BURGUNDY = "#4A0E0E"
 LIGHT_BURGUNDY = "#800020"
@@ -50,7 +51,7 @@ class WineAppDropdownMenu(ctk.CTkFrame):
             ("Profile", "perfil", "WineAppMobileGUI"),
             ("Upload Opinion", None, None),
             ("Favorites", "gui.perfil_gui.favs", "WineRatingApp"),
-            ("Support", None, None),
+            ("Support", "suporte", "Formulario"),
             ("Logout", "login", None),
         ]
 
@@ -101,6 +102,7 @@ class WineAppDropdownMenu(ctk.CTkFrame):
     def navigate_to(self, module_name, class_name):
         self.hide_menu()
         if self.current_page:
+            print(f"Destroying {self.current_page}")
             self.current_page.destroy()
 
         module = importlib.import_module(module_name)

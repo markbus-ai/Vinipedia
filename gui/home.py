@@ -87,19 +87,25 @@ class WineAppHomeGUI(ctk.CTk):
 
     def home_event(self):
         print("Botón de inicio presionado")
+        subprocess.run(["python", "gui/home.py"])
+        self.destroy()
 
     def profile_event(self):
         subprocess.run(["python", "gui/perfil.py"]) 
+        self.destroy()
         print("Botón de soporte presionado")
     def upload_opinion_event(self):
         print("Botón de subir opinión presionado")
 
     def support_event(self):
         subprocess.run(["python", "gui/suporte.py"])  # Ejecuta suporte.py en la carpeta gui
+        self.destroy()
         print("Botón de soporte presionado")
 
     def add_favorite_event(self):
+        subprocess.run(["python", "gui/perfil_gui/favs.py"])
         print("Botón de agregar a favoritos presionado")
+        self.destroy()
 
     def view_info_event(self):
         print("Botón de ver información del vino presionado")
