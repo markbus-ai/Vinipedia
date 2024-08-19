@@ -12,7 +12,7 @@ GOLD = "#FFD700"
 CREAM = "#FFFDD0"
 
 class WineAppMobileGUI:
-    def __init__(self):
+    def __init__(self, user_data):
         ctk.set_appearance_mode("light")
         ctk.set_default_color_theme("dark-blue")
 
@@ -27,8 +27,11 @@ class WineAppMobileGUI:
             "cream": CREAM,
         }
 
+        self.user_data = user_data
+
         self.create_widgets()
         self.layout_widgets()
+        self.load_user_data()
 
     def create_widgets(self):
         # Main content frame
@@ -178,7 +181,25 @@ class WineAppMobileGUI:
         self.fav_button.pack(side="left", expand=True, padx=5)
         self.edit_profile_button.pack(side="right", expand=True, padx=5)
 
-    def load_photo(self):
+    def load_user_data(self):
+        if self.user_data:
+            self.name_entry.insert(0, self.user_data.get('name', ''))
+            self.fav_wine_entry.insert(0, self.user_data.get('favorite_wine', ''))
+            self.about_text.delete('1.0', ctk.END)
+            self.about_text.insert('1.0', self.user_data.get('about', 'Share your passion for wine...'))
+            
+            # Cargar foto de perfil si existe
+            if 'profile_photo' in self.user_data and self.user_data['profile_photo']:
+                self.load_photo(self.user_data['profile_photo'])
+            
+            # Cargar reseñas recientes si existen
+            reviews = self.user_data.get('recent_reviews', [])
+            if len(reviews) > 0:
+                self.review1.configure(text=reviews[0])
+            if len(reviews) > 1:
+                self.review2.configure(text=reviews[1])
+
+    def load_photo(self, file_path=None):
         file_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.png;*.jpg;*.jpeg")])
         if file_path:
             img = Image.open(file_path)
@@ -210,5 +231,17 @@ class WineAppMobileGUI:
         self.root.mainloop()
 
 if __name__ == "__main__":
-    app = WineAppMobileGUI()
+    # Aquí deberías obtener los datos del usuario de la base de datos
+    # Por ahora, usaremos datos de ejemplo
+    user_data = {
+        'name': 'Juan Pérez',
+        'favorite_wine': 'Malbec',
+        'about': 'Apasionado por los vinos tintos y la buena comida.',
+        'profile_photo': 'ruta/a/la/foto.jpg',
+        'recent_reviews': [
+            '2022 Cabernet Sauvignon - Excelente cuerpo y sabor',
+            '2021 Chardonnay - Fresco y afrutado'
+        ]
+    }
+    app = WineAppMobileGUI(user_data)
     app.run()
