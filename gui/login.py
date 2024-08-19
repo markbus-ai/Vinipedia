@@ -51,12 +51,13 @@ def register():
         elif any(user["Email"] == user_email for user in db_user.values()):
             tkmb.showerror(title="Error", message="El correo ya existe")
         else:
-            c.execute("INSERT INTO users VALUES (?, ?, ?)", (user_name, user_email, user_password))
+            c.execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", (user_name, user_email, user_password))
             conn.commit()
             db_user[user_name] = {"Email": user_email, "password": user_password}
             tkmb.showinfo(title="Éxito", message="Usuario creado con éxito")
             print(db_user)
             register_w.destroy()
+
     
     register_w = ctk.CTkToplevel(app_login)
     register_w.geometry("400x450")
