@@ -1,9 +1,9 @@
 import sys
 import os
+import folium
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtCore import QUrl
-import folium
 
 class WineMapApp(QMainWindow):
     def __init__(self):

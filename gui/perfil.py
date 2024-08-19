@@ -1,10 +1,8 @@
 import sys
 import os
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+from PIL import Image, ImageTk, ImageDraw
 import customtkinter as ctk
-from PIL import Image, ImageTk
+from tkinter import filedialog
 from dropdown_menu import WineAppDropdownMenu
 
 # Color palette
@@ -13,7 +11,6 @@ LIGHT_BURGUNDY = "#800020"
 GOLD = "#FFD700"
 CREAM = "#FFFDD0"
 
-
 class WineAppMobileGUI:
     def __init__(self):
         ctk.set_appearance_mode("light")
@@ -21,7 +18,7 @@ class WineAppMobileGUI:
 
         self.root = ctk.CTk()
         self.root.title("Wine Enthusiast Profile")
-        self.root.geometry("360x640")  # Common Android phone resolution
+        self.root.geometry("480x740")  # Common Android phone resolution
 
         self.colors = {
             "DARK_BURGUNDY": DARK_BURGUNDY,
@@ -52,15 +49,31 @@ class WineAppMobileGUI:
         # Profile Photo
         self.photo_frame = ctk.CTkFrame(
             self.main_frame,
-            width=120,
-            height=120,
-            corner_radius=60,
+            width=150,
+            height=150,
+            corner_radius=75,  # Ensures the frame is circular
             fg_color=self.colors["DARK_BURGUNDY"],
         )
-        self.photo_label = ctk.CTkLabel(
-            self.photo_frame, text="", fg_color=self.colors["cream"]
+        self.photo_frame.place(relx=0.5, rely=0.2, anchor="center")
+
+        self.canvas = ctk.CTkCanvas(
+            self.photo_frame,
+            width=150,
+            height=150,
+            bg=self.colors["DARK_BURGUNDY"],
+            highlightthickness=0,
         )
-        self.photo_label.pack(expand=True, fill="both", padx=5, pady=5)
+        self.canvas.pack(fill="both", expand=True)
+
+        # Load profile photo button
+        self.load_photo_button = ctk.CTkButton(
+            self.main_frame,
+            text="Load Photo",
+            command=self.load_photo,
+            fg_color=self.colors["LIGHT_BURGUNDY"],
+            hover_color=self.colors["gold"],
+        )
+        self.load_photo_button.place(relx=0.5, rely=0.35, anchor="center")
 
         # Name
         self.name_entry = ctk.CTkEntry(
@@ -148,15 +161,14 @@ class WineAppMobileGUI:
         )
 
     def layout_widgets(self):
-        self.photo_frame.place(relx=0.5, rely=0.15, anchor="center")
-        self.name_entry.place(relx=0.5, rely=0.3, anchor="center")
-        self.fav_wine_entry.place(relx=0.5, rely=0.38, anchor="center")
+        self.name_entry.place(relx=0.5, rely=0.45, anchor="center")
+        self.fav_wine_entry.place(relx=0.5, rely=0.53, anchor="center")
 
-        self.about_frame.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.9)
+        self.about_frame.place(relx=0.5, rely=0.65, anchor="center", relwidth=0.9)
         self.about_label.pack(anchor="w")
         self.about_text.pack(fill="x", pady=5)
 
-        self.reviews_frame.place(relx=0.5, rely=0.7, anchor="center", relwidth=0.9)
+        self.reviews_frame.place(relx=0.5, rely=0.8, anchor="center", relwidth=0.9)
         self.reviews_label.pack(anchor="w", pady=(0, 5))
         self.review1.pack(fill="x", pady=2)
         self.review2.pack(fill="x", pady=2)
@@ -166,9 +178,36 @@ class WineAppMobileGUI:
         self.fav_button.pack(side="left", expand=True, padx=5)
         self.edit_profile_button.pack(side="right", expand=True, padx=5)
 
+    def load_photo(self):
+        file_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.png;*.jpg;*.jpeg")])
+        if file_path:
+            img = Image.open(file_path)
+            img = img.resize((150, 150), Image.Resampling.LANCZOS)
+
+            # Create a circular mask
+            mask = Image.new('L', (150, 150), 0)
+            draw = ImageDraw.Draw(mask)
+            draw.ellipse((0, 0, 150, 150), fill=255)
+            img.putalpha(mask)
+
+            # Create an image with a transparent background and paste the circular photo onto it
+            circular_img = Image.new('RGBA', (150, 150), (0, 0, 0, 0))
+            circular_img.paste(img, (0, 0), img)
+
+            # Convert to PhotoImage
+            self.photo_img = ImageTk.PhotoImage(circular_img)
+
+            # Clear existing images
+            self.canvas.delete("all")
+            
+            # Create a new image on the canvas
+            self.canvas.create_image(75, 75, image=self.photo_img, anchor="center")
+            
+            # Keep a reference to avoid garbage collection
+            self.canvas.image = self.photo_img
+
     def run(self):
         self.root.mainloop()
-
 
 if __name__ == "__main__":
     app = WineAppMobileGUI()

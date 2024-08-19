@@ -1,8 +1,10 @@
 import customtkinter as ctk
 from PIL import Image, ImageTk
+from tkinter import filedialog
 from perfil import WineAppMobileGUI
 from dropdown_menu import WineAppDropdownMenu
 import os
+import subprocess  # Para ejecutar scripts de manera más segura
 
 # Paleta de colores
 DARK_BURGUNDY = "#4A0E0E"
@@ -84,18 +86,16 @@ class WineAppHomeGUI(ctk.CTk):
         view_info_button.pack(side="right", padx=5)
 
     def home_event(self):
-        self.destroy()
-        self.__init__()
+        print("Botón de inicio presionado")
 
     def profile_event(self):
-        profile = WineAppMobileGUI()
-        self.destroy()
-        profile.run()
-
+        subprocess.run(["python", "gui/perfil.py"]) 
+        print("Botón de soporte presionado")
     def upload_opinion_event(self):
         print("Botón de subir opinión presionado")
 
     def support_event(self):
+        subprocess.run(["python", "gui/suporte.py"])  # Ejecuta suporte.py en la carpeta gui
         print("Botón de soporte presionado")
 
     def add_favorite_event(self):
@@ -105,7 +105,7 @@ class WineAppHomeGUI(ctk.CTk):
         print("Botón de ver información del vino presionado")
 
     def map_event(self):
-        os.system("python3 gui/mapa.py")  # Ruta actualizada para ejecutar mapa.py en la carpeta gui
+        subprocess.run(["python", "gui/mapa.py"])  # Ejecuta mapa.py en la carpeta gui
 
 if __name__ == "__main__":
     app = WineAppHomeGUI()
