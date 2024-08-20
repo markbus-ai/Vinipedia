@@ -1,7 +1,7 @@
 import sys
 import os
 import folium
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtCore import QUrl
 
@@ -63,6 +63,11 @@ class WineMapApp(QMainWindow):
         self.web_view = QWebEngineView()
         layout.addWidget(self.web_view)
 
+        ''' Crear un botón para cerrar la ventana '''
+        close_button = QPushButton("Cerrar")
+        close_button.clicked.connect(self.close)
+        layout.addWidget(close_button)
+
         ''' Verificar si el archivo HTML existe '''
         if os.path.exists(self.map_file):
             ''' Convertir la cadena de archivo en un objeto QUrl '''
@@ -80,3 +85,4 @@ if __name__ == "__main__":
     window = WineMapApp()
     window.show()
     sys.exit(app.exec_())
+
