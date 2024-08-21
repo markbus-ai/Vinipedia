@@ -238,7 +238,8 @@ class WineAppHomeGUI(ctk.CTk):
 
     def profile_event(self):
         self.destroy()
-        WineAppMobileGUI(self.user)
+        perfil =WineAppMobileGUI(self.user)
+        perfil.run()
         print("Botón de perfil presionado")
 
     def upload_opinion_event(self):
