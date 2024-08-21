@@ -216,8 +216,8 @@ class WineAppMobileGUI:
     def show_favs(self):
         self.favs = WineRatingApp()
         self.root.destroy()
-        self.favs.mainloop()  # Cambiado a mainloop() en lugar de run()
- 
+        self.favs.run()
+
     def run(self):
         self.root.mainloop()
  

@@ -4,15 +4,15 @@ from PIL import Image, ImageTk
 from perfil import WineAppMobileGUI
 from dropdown_menu import WineAppDropdownMenu
 import os
-import subprocess
 import sqlite3
+from Info_vino import WineInfoScreen
+
 
 # Colores de la paleta personalizada
 DARK_BURGUNDY = "#4A0E0E"
 LIGHT_BURGUNDY = "#800020"
 GOLD = "#FFD700"
 CREAM = "#FFFDD0"
-
 
 class WineAppHomeGUI(ctk.CTk):
     def __init__(self, user=None):
@@ -24,7 +24,7 @@ class WineAppHomeGUI(ctk.CTk):
         self.geometry("1024x768")
         self.configure(fg_color=DARK_BURGUNDY)
         self.user = user
-        print("USER: ",self.user)
+        print("USER: ", self.user)
 
         # Configuración de la grilla para un diseño responsivo
         self.grid_columnconfigure(1, weight=1)
@@ -222,49 +222,56 @@ class WineAppHomeGUI(ctk.CTk):
                 text="❌ No se encontraron resultados",
                 wraplength=400,
                 text_color=GOLD,
-                font=ctk.CTkFont(size=16, weight="bold"),
+                font=ctk.CTkFont(size=18, weight="bold"),
             )
-            no_result_label.pack(pady=5)
+            no_result_label.pack(expand=True, padx=20, pady=20)
 
     def verify_database(self):
         if not os.path.exists(self.db_path):
-            messagebox.showerror("Error", "La base de datos no se encontró.")
-            self.destroy()
+            messagebox.showerror(
+                "Error", "La base de datos de vinos no fue encontrada en la ruta especificada."
+            )
 
     def home_event(self):
         self.destroy()
-        print("Botón de inicio presionado")
-        subprocess.run(["python", "gui/home.py"])
+        self.__init__(user=self.user)
 
     def profile_event(self):
         self.destroy()
-        perfil =WineAppMobileGUI(self.user)
-        perfil.run()
+        WineAppMobileGUI(self.user)
         print("Botón de perfil presionado")
 
-    def upload_opinion_event(self):
-        print("Botón de subir opinión presionado")
+    def map_event(self):
+        messagebox.showinfo("Mapa de bodegas", "Funcionalidad próximamente disponible.")
 
     def support_event(self):
-        self.destroy()
-        subprocess.run(["python", "gui/suporte.py"])
-        print("Botón de soporte presionado")
-
-    def map_event(self):
-        self.destroy()
-        subprocess.run(["python", "gui/mapa.py"])
-        print("Botón de mapa presionado")
+        messagebox.showinfo("Soporte", "Para soporte, por favor contactar a: support@vinipedia.com")
 
     def add_favorite_event(self, wine):
-        # Código para añadir el vino a favoritos
-        print(f"Vino añadido a favoritos: {wine[1]}")
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        try:
+            cursor.execute(
+                "INSERT INTO Favorites (user_id, wine_id) VALUES (?, ?)",
+                (self.user['id'], wine[0]),
+            )
+            conn.commit()
+            messagebox.showinfo(
+                "Favoritos", f"El vino {wine[1]} ha sido añadido a tus favoritos."
+            )
+        except sqlite3.IntegrityError:
+            messagebox.showwarning(
+                "Favoritos", f"El vino {wine[1]} ya está en tus favoritos."
+            )
+        finally:
+            conn.close()
 
     def view_info_event(self, wine):
-        # Código para ver la información del vino
-        print(f"Ver información del vino: {wine[1]}")
+        vino = WineInfoScreen(self,wine_data=wine)
+        vino.mainloop()
+        
 
-
-# Ejecuta la aplicación
 if __name__ == "__main__":
-    app = WineAppHomeGUI()
+    app = WineAppHomeGUI(user={"id": 1, "username": "Usuario1"})  # Reemplaza con los datos reales del usuario
     app.mainloop()
