@@ -13,13 +13,15 @@ GOLD = "#FFD700"
 CREAM = "#FFFDD0"
 
 class WineAppMobileGUI:
-    def __init__(self):
+    def __init__(self, user = None):
         ctk.set_appearance_mode("light")
         ctk.set_default_color_theme("dark-blue")
 
         self.root = ctk.CTk()
         self.root.title("Wine Enthusiast Profile")
-        self.root.geometry("480x740")  # Common Android phone resolution
+        self.root.geometry("480x740")
+        self.user = user
+        print("USER: ",self.user)
 
         self.colors = {
             "DARK_BURGUNDY": DARK_BURGUNDY,
@@ -161,6 +163,9 @@ class WineAppMobileGUI:
             fg_color=self.colors["LIGHT_BURGUNDY"],
             hover_color=self.colors["gold"],
         )
+        if self.user is not None:
+            self.name_entry.insert(0, self.user["username"])
+
 
     def layout_widgets(self):
         self.name_entry.place(relx=0.5, rely=0.45, anchor="center")

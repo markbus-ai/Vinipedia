@@ -15,7 +15,7 @@ CREAM = "#FFFDD0"
 
 
 class WineAppHomeGUI(ctk.CTk):
-    def __init__(self):
+    def __init__(self, user=None):
         super().__init__()
 
         self.db_path = os.path.join(os.path.dirname(__file__), "..", "DB", "wines.db")
@@ -23,6 +23,8 @@ class WineAppHomeGUI(ctk.CTk):
         self.title("Wine App")
         self.geometry("1024x768")
         self.configure(fg_color=DARK_BURGUNDY)
+        self.user = user
+        print("USER: ",self.user)
 
         # Configuración de la grilla para un diseño responsivo
         self.grid_columnconfigure(1, weight=1)
@@ -236,7 +238,7 @@ class WineAppHomeGUI(ctk.CTk):
 
     def profile_event(self):
         self.destroy()
-        subprocess.run(["python", "gui/perfil.py"])
+        WineAppMobileGUI(self.user)
         print("Botón de perfil presionado")
 
     def upload_opinion_event(self):

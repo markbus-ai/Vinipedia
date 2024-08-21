@@ -33,7 +33,7 @@ if not c.fetchone():
 
 # Retrieve the user data from the database
 c.execute("SELECT * FROM users")
-db_user = {row[0]: {"Email": row[1], "password": row[2]} for row in c.fetchall()}
+db_user = {row[1]: {"Email": row[2], "password": row[3], "id": row[0], "username": row[1]} for row in c.fetchall()}
 
 def register():
     def cargar_datos():
@@ -86,7 +86,8 @@ def login():
     if username in db_user:
         if password == db_user[username]["password"]:
             tkmb.showinfo(title="Inicio de sesión exitoso", message="Has iniciado sesión correctamente")
-            app = WineAppHomeGUI()
+            user = db_user[username]
+            app = WineAppHomeGUI(user)
             app_login.destroy()
             app.mainloop()
         else:
