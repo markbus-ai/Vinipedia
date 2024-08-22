@@ -26,14 +26,23 @@ conn = sqlite3.connect("DB/users.db")
 c = conn.cursor()
 
 # Check if the users table existsz
+# Check if the users table exists
 c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='users'")
 if not c.fetchone():
-    # Create the users table
-    c.execute("CREATE TABLE users (username TEXT PRIMARY KEY, email TEXT, password TEXT)")
+    # Create the users table with the new structure
+    c.execute("""CREATE TABLE users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        email TEXT,
+        password TEXT,
+        description TEXT,
+        image TEXT,
+        favoritos TEXT
+    )""")
 
 # Retrieve the user data from the database
 c.execute("SELECT * FROM users")
-db_user = {row[1]: {"Email": row[2], "password": row[3], "id": row[0], "username": row[1]} for row in c.fetchall()}
+db_user = {row[1]: {"id": row[0], "name": row[1], "email": row[2], "password": row[3], "description": row[4], "image": row[5], "favoritos": row[6]} for row in c.fetchall()}
 
 def register():
     def cargar_datos():
@@ -51,9 +60,10 @@ def register():
         elif any(user["Email"] == user_email for user in db_user.values()):
             tkmb.showerror(title="Error", message="El correo ya existe")
         else:
-            c.execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", (user_name, user_email, user_password))
+            c.execute("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", (user_name, user_email, user_password))
             conn.commit()
-            db_user[user_name] = {"Email": user_email, "password": user_password}
+            user_id = c.lastrowid
+            db_user[user_name] = {"id": user_id, "name": user_name, "email": user_email, "password": user_password, "description": None, "image": None, "favoritos": None}
             tkmb.showinfo(title="Éxito", message="Usuario creado con éxito")
             print(db_user)
             register_w.destroy()
