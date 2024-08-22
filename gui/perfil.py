@@ -161,7 +161,7 @@ class WineAppMobileGUI:
     def confirm_user(self):    
         
         if self.user is not None:                            
-            texto_confirm = self.user["username"]                  
+            texto_confirm = self.user["name"]                  
         else:
             texto_confirm = "Sin User"
         
