@@ -71,7 +71,7 @@ class WineAppMobileGUI:
         # Load profile photo button
         self.load_photo_button = ctk.CTkButton(
             self.main_frame,
-            text="Cargar foto",
+            text="Cargar Imagen",
             command=self.load_photo,
             fg_color=self.colors["LIGHT_BURGUNDY"],
             hover_color=self.colors["gold"],
@@ -81,17 +81,17 @@ class WineAppMobileGUI:
         # Name
         self.name_entry = ctk.CTkEntry(
             self.main_frame,
-            placeholder_text="tu nombre",
+            placeholder_text="Your Name",
             font=("Helvetica", 18),
             width=250,
             fg_color=self.colors["cream"],
             text_color=self.colors["DARK_BURGUNDY"],
         )
-
+ 
         # Favorite Wine
         self.fav_wine_entry = ctk.CTkEntry(
             self.main_frame,
-            placeholder_text="vino favorito",
+            placeholder_text="Favorite Wine",
             font=("Helvetica", 14),
             width=250,
             fg_color=self.colors["cream"],
@@ -102,7 +102,7 @@ class WineAppMobileGUI:
         self.about_frame = ctk.CTkFrame(self.main_frame, fg_color="transparent")
         self.about_label = ctk.CTkLabel(
             self.about_frame,
-            text="Acerca de mí",
+            text="About Me",
             font=("Helvetica", 16, "bold"),
             text_color=self.colors["gold"],
         )
@@ -116,7 +116,7 @@ class WineAppMobileGUI:
             text_color=self.colors["DARK_BURGUNDY"],
         )
         self.about_text.insert("1.0", "Share your passion for wine...")
-
+ 
         # Last Reviews
         self.reviews_frame = ctk.CTkFrame(self.main_frame, fg_color="transparent")
         self.reviews_label = ctk.CTkLabel(
@@ -127,7 +127,7 @@ class WineAppMobileGUI:
         )
         self.review1 = ctk.CTkLabel(
             self.reviews_frame,
-            text="2022 Cabernet Sauvignon - Rica y con mucho cuerpo",
+            text="2022 Cabernet Sauvignon - Rich and full-bodied",
             font=("Helvetica", 14),
             fg_color=self.colors["cream"],
             corner_radius=8,
@@ -135,7 +135,7 @@ class WineAppMobileGUI:
         )
         self.review2 = ctk.CTkLabel(
             self.reviews_frame,
-            text="2021 Chardonnay - Crujiente con notas de roble.",
+            text="2021 Chardonnay - Crisp with hints of oak",
             font=("Helvetica", 14),
             fg_color=self.colors["cream"],
             corner_radius=8,
@@ -146,7 +146,7 @@ class WineAppMobileGUI:
         self.button_frame = ctk.CTkFrame(self.main_frame, fg_color="transparent")
         self.add_review_button = ctk.CTkButton(
             self.button_frame,
-            text="Añadir reseña",
+            text="Add Review",
             fg_color=self.colors["LIGHT_BURGUNDY"],
             hover_color=self.colors["gold"],
         )
@@ -159,16 +159,18 @@ class WineAppMobileGUI:
         )
         self.edit_profile_button = ctk.CTkButton(
             self.button_frame,
-            text="Edit Profil",
+            text="Edit Profile",
             fg_color=self.colors["LIGHT_BURGUNDY"],
             hover_color=self.colors["gold"],
         )
         if self.user is not None:
             self.name_entry.insert(0, self.user["username"])
-
-
+ 
+ 
     def layout_widgets(self):
-        self.name_entry.place(relx=0.5, rely=0.45, anchor="center")
+        '''self.show_name.place(relx=0.5, rely=0.45, anchor="center")'''
+        self.show_name_frame.place(relx=0.5, rely=0.45, anchor="center")
+        self.show_name.pack()
         self.fav_wine_entry.place(relx=0.5, rely=0.53, anchor="center")
 
         self.about_frame.place(relx=0.5, rely=0.65, anchor="center", relwidth=0.9)
