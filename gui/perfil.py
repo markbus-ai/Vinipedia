@@ -5,34 +5,34 @@ import customtkinter as ctk
 from tkinter import filedialog
 from dropdown_menu import WineAppDropdownMenu
 from perfil_gui.favs import WineRatingApp
- 
+
 # Color palette
 DARK_BURGUNDY = "#4A0E0E"
 LIGHT_BURGUNDY = "#800020"
 GOLD = "#FFD700"
 CREAM = "#FFFDD0"
- 
+
 class WineAppMobileGUI:
     def __init__(self, user = None):
         ctk.set_appearance_mode("light")
         ctk.set_default_color_theme("dark-blue")
- 
+
         self.root = ctk.CTk()
-        self.root.title("Wine Enthusiast Profile")
+        self.root.title("Perfil de un entusiasta del vino")
         self.root.geometry("480x740")
         self.user = user
         print("USER: ",self.user)
- 
+
         self.colors = {
             "DARK_BURGUNDY": DARK_BURGUNDY,
             "LIGHT_BURGUNDY": LIGHT_BURGUNDY,
             "gold": GOLD,
             "cream": CREAM,
         }
- 
+    
         self.create_widgets()
         self.layout_widgets()
- 
+    
     def create_widgets(self):
         # Main content frame
         self.main_frame = ctk.CTkFrame(
@@ -42,13 +42,13 @@ class WineAppMobileGUI:
             border_color=self.colors["cream"],
         )
         self.main_frame.pack(fill="both", expand=True)
- 
+    
         # Add the dropdown menu
         self.dropdown_menu = WineAppDropdownMenu(
             self.main_frame, current_page=self.root
         )
         self.dropdown_menu.place(x=10, y=10)
- 
+
         # Profile Photo
         self.photo_frame = ctk.CTkFrame(
             self.main_frame,
@@ -58,7 +58,7 @@ class WineAppMobileGUI:
             fg_color=self.colors["DARK_BURGUNDY"],
         )
         self.photo_frame.place(relx=0.5, rely=0.2, anchor="center")
- 
+
         self.canvas = ctk.CTkCanvas(
             self.photo_frame,
             width=150,
@@ -67,42 +67,42 @@ class WineAppMobileGUI:
             highlightthickness=0,
         )
         self.canvas.pack(fill="both", expand=True)
- 
+
         # Load profile photo button
         self.load_photo_button = ctk.CTkButton(
             self.main_frame,
-            text="Load Photo",
+            text="Cargar foto",
             command=self.load_photo,
             fg_color=self.colors["LIGHT_BURGUNDY"],
             hover_color=self.colors["gold"],
         )
         self.load_photo_button.place(relx=0.5, rely=0.35, anchor="center")
- 
+
         # Name
         self.name_entry = ctk.CTkEntry(
             self.main_frame,
-            placeholder_text="Your Name",
+            placeholder_text="tu nombre",
             font=("Helvetica", 18),
             width=250,
             fg_color=self.colors["cream"],
             text_color=self.colors["DARK_BURGUNDY"],
         )
- 
+
         # Favorite Wine
         self.fav_wine_entry = ctk.CTkEntry(
             self.main_frame,
-            placeholder_text="Favorite Wine",
+            placeholder_text="vino favorito",
             font=("Helvetica", 14),
             width=250,
             fg_color=self.colors["cream"],
             text_color=self.colors["DARK_BURGUNDY"],
         )
- 
+
         # About
         self.about_frame = ctk.CTkFrame(self.main_frame, fg_color="transparent")
         self.about_label = ctk.CTkLabel(
             self.about_frame,
-            text="About Me",
+            text="Acerca de mí",
             font=("Helvetica", 16, "bold"),
             text_color=self.colors["gold"],
         )
@@ -116,18 +116,18 @@ class WineAppMobileGUI:
             text_color=self.colors["DARK_BURGUNDY"],
         )
         self.about_text.insert("1.0", "Share your passion for wine...")
- 
+
         # Last Reviews
         self.reviews_frame = ctk.CTkFrame(self.main_frame, fg_color="transparent")
         self.reviews_label = ctk.CTkLabel(
             self.reviews_frame,
-            text="Recent Wine Reviews",
+            text="Reseñas recientes de vinos",
             font=("Helvetica", 16, "bold"),
             text_color=self.colors["gold"],
         )
         self.review1 = ctk.CTkLabel(
             self.reviews_frame,
-            text="2022 Cabernet Sauvignon - Rich and full-bodied",
+            text="2022 Cabernet Sauvignon - Rica y con mucho cuerpo",
             font=("Helvetica", 14),
             fg_color=self.colors["cream"],
             corner_radius=8,
@@ -135,56 +135,56 @@ class WineAppMobileGUI:
         )
         self.review2 = ctk.CTkLabel(
             self.reviews_frame,
-            text="2021 Chardonnay - Crisp with hints of oak",
+            text="2021 Chardonnay - Crujiente con notas de roble.",
             font=("Helvetica", 14),
             fg_color=self.colors["cream"],
             corner_radius=8,
             pady=5,
         )
- 
+
         # Buttons
         self.button_frame = ctk.CTkFrame(self.main_frame, fg_color="transparent")
         self.add_review_button = ctk.CTkButton(
             self.button_frame,
-            text="Add Review",
+            text="Añadir reseña",
             fg_color=self.colors["LIGHT_BURGUNDY"],
             hover_color=self.colors["gold"],
         )
         self.fav_button = ctk.CTkButton(
             self.button_frame,
-            text="Favorites",
+            text="Favoritos",
             fg_color=self.colors["LIGHT_BURGUNDY"],
             hover_color=self.colors["gold"],
             command=self.show_favs
         )
         self.edit_profile_button = ctk.CTkButton(
             self.button_frame,
-            text="Edit Profile",
+            text="Edit Profil",
             fg_color=self.colors["LIGHT_BURGUNDY"],
             hover_color=self.colors["gold"],
         )
         if self.user is not None:
             self.name_entry.insert(0, self.user["username"])
- 
- 
+
+
     def layout_widgets(self):
         self.name_entry.place(relx=0.5, rely=0.45, anchor="center")
         self.fav_wine_entry.place(relx=0.5, rely=0.53, anchor="center")
- 
+
         self.about_frame.place(relx=0.5, rely=0.65, anchor="center", relwidth=0.9)
         self.about_label.pack(anchor="w")
         self.about_text.pack(fill="x", pady=5)
- 
+
         self.reviews_frame.place(relx=0.5, rely=0.8, anchor="center", relwidth=0.9)
         self.reviews_label.pack(anchor="w", pady=(0, 5))
         self.review1.pack(fill="x", pady=2)
         self.review2.pack(fill="x", pady=2)
- 
+
         self.button_frame.place(relx=0.5, rely=0.9, anchor="center", relwidth=0.9)
         self.add_review_button.pack(side="left", expand=True, padx=5)
         self.fav_button.pack(side="left", expand=True, padx=5)
         self.edit_profile_button.pack(side="right", expand=True, padx=5)
- 
+
     def load_photo(self):
         file_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.png;*.jpg;*.jpeg")])
         if file_path:

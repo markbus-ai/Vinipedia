@@ -70,13 +70,13 @@ def register():
     entrada_correo = ctk.CTkEntry(register_w, placeholder_text="Email", width=300, height=40, fg_color=LIGHT_BURGUNDY, text_color=CREAM, placeholder_text_color=GOLD)
     entrada_correo.pack(pady=10)
 
-    entrada_username = ctk.CTkEntry(register_w, placeholder_text="Username", width=300, height=40, fg_color=LIGHT_BURGUNDY, text_color=CREAM, placeholder_text_color=GOLD)
+    entrada_username = ctk.CTkEntry(register_w, placeholder_text="Nombre de usuario", width=300, height=40, fg_color=LIGHT_BURGUNDY, text_color=CREAM, placeholder_text_color=GOLD)
     entrada_username.pack(pady=10)
 
-    entrada_contraseña = ctk.CTkEntry(register_w, placeholder_text="Password", show="*", width=300, height=40, fg_color=LIGHT_BURGUNDY, text_color=CREAM, placeholder_text_color=GOLD)
+    entrada_contraseña = ctk.CTkEntry(register_w, placeholder_text="Contraseña", show="*", width=300, height=40, fg_color=LIGHT_BURGUNDY, text_color=CREAM, placeholder_text_color=GOLD)
     entrada_contraseña.pack(pady=10)
 
-    btn_enviar = ctk.CTkButton(register_w, text="Register", command=cargar_datos, fg_color=GOLD, text_color=DARK_BURGUNDY, hover_color=CREAM, width=200, height=40)
+    btn_enviar = ctk.CTkButton(register_w, text="Registro", command=cargar_datos, fg_color=GOLD, text_color=DARK_BURGUNDY, hover_color=CREAM, width=200, height=40)
     btn_enviar.pack(pady=20)
 
 def login():
@@ -96,23 +96,23 @@ def login():
         tkmb.showerror(title="Inicio de sesión fallido", message="Nombre de usuario inválido")
 
 # Title
-title_label = ctk.CTkLabel(app_login, text="ViniPedia Login", font=("Helvetica", 28, "bold"), text_color=GOLD)
+title_label = ctk.CTkLabel(app_login, text="ViniPedia Acceso", font=("Helvetica", 28, "bold"), text_color=GOLD)
 title_label.place(relx=0.5, rely=0.15, anchor="center")
 
 # Username entry
-username_entry = ctk.CTkEntry(app_login, placeholder_text="Username", width=300, height=40, fg_color=LIGHT_BURGUNDY, text_color=CREAM, placeholder_text_color=GOLD)
+username_entry = ctk.CTkEntry(app_login, placeholder_text="Nombre de usuario", width=300, height=40, fg_color=LIGHT_BURGUNDY, text_color=CREAM, placeholder_text_color=GOLD)
 username_entry.place(relx=0.5, rely=0.3, anchor="center")
 
 # Password entry
-password_entry = ctk.CTkEntry(app_login, placeholder_text="Password", show="*", width=300, height=40, fg_color=LIGHT_BURGUNDY, text_color=CREAM, placeholder_text_color=GOLD)
+password_entry = ctk.CTkEntry(app_login, placeholder_text="contraseña", show="*", width=300, height=40, fg_color=LIGHT_BURGUNDY, text_color=CREAM, placeholder_text_color=GOLD)
 password_entry.place(relx=0.5, rely=0.4, anchor="center")
 
 # Login button
-btn_login = ctk.CTkButton(app_login, text="Login", command=login, fg_color=GOLD, text_color=DARK_BURGUNDY, hover_color=CREAM, width=200, height=40)
+btn_login = ctk.CTkButton(app_login, text="Acceso", command=login, fg_color=GOLD, text_color=DARK_BURGUNDY, hover_color=CREAM, width=200, height=40)
 btn_login.place(relx=0.5, rely=0.55, anchor="center")
 
 # Register button
-btn_register = ctk.CTkButton(app_login, text="Register", command=register, fg_color=LIGHT_BURGUNDY, text_color=GOLD, hover_color=CREAM, width=200, height=40)
+btn_register = ctk.CTkButton(app_login, text="Registro", command=register, fg_color=LIGHT_BURGUNDY, text_color=GOLD, hover_color=CREAM, width=200, height=40)
 btn_register.place(relx=0.5, rely=0.65, anchor="center")
 
 app_login.mainloop()
