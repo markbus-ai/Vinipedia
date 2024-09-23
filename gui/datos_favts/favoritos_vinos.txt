@@ -1,0 +1,4 @@
+('Chardonnay Gran Reserva', 'Blanco', '2019', 'Viña Concha y Toro', 'Valle Central', 'Chile', '18.50', '', 4)
+('Chardonnay Gran Reserva', 'Blanco', '2019', 'Viña Concha y Toro', 'Valle Central', 'Chile', '18.50', '', 3)
+('Chardonnay Gran Reserva', 'Blanco', '2019', 'Viña Concha y Toro', 'Valle Central', 'Chile', '18.50', '', 2)
+('Chardonnay Gran Reserva', 'Blanco', '2019', 'Viña Concha y Toro', 'Valle Central', 'Chile', '18.50', '', 3)

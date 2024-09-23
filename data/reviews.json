@@ -1,0 +1,32 @@
+[
+    {
+        "wine_name": "Chardonnay",
+        "year": "2021",
+        "review_text": "Crujiente con toques de roble."
+    },
+    {
+        "wine_name": "Merlot",
+        "year": "2019",
+        "review_text": "Suave y afrutado, ideal para cualquier ocasion."
+    },
+    {
+        "wine_name": "Cabernet Sauvignon",
+        "year": "2020",
+        "review_text": "Intenso y con un final largo."
+    },
+    {
+        "wine_name": "Vino carcan",
+        "year": "1555",
+        "review_text": "malaso"
+    },
+    {
+        "wine_name": "Vino Toro",
+        "year": "2024",
+        "review_text": "El chino me lo vendio vencido"
+    },
+    {
+        "wine_name": "Fernet",
+        "year": "2024",
+        "review_text": "La mejor bebida jamas creada ."
+    }
+]
