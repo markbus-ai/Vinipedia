@@ -158,7 +158,15 @@ class FavtsPrograma:
         frame_boton_exit = ctk.CTkFrame(self.frame_favts, fg_color=self.colors["DARK_BURGUNDY"])
         frame_boton_exit.pack(fill="x", pady=(5, 8),padx = 5)
  
-        btn_back = ctk.CTkButton(frame_boton_exit, text="Volver", corner_radius=5, command=lambda :show_perfil_frame(self.frame_favts), width=0, fg_color=self.colors["gold"], text_color="black")
+        btn_back = ctk.CTkButton(
+            frame_boton_exit,
+            text="Volver",
+            corner_radius=5,
+            command=lambda :show_perfil_frame(self.frame_favts),
+            width=0,
+            fg_color=self.colors["gold"],
+            text_color="black"
+            )
         btn_back.pack(side="left")
  
         # titulo
@@ -173,6 +181,7 @@ class FavtsPrograma:
         # frame para buscar y mostrar sugerencias
         frame_buscar = ctk.CTkFrame(self.frame_favts, fg_color=self.colors["DARK_BURGUNDY"])
         frame_buscar.pack(pady=10, fill="x", padx=10)
+
  
         # entry para buscar vino
         self.entry_buscar = ctk.CTkEntry(
@@ -181,31 +190,37 @@ class FavtsPrograma:
             width=250,
             font=('Arial', 14)
         )
-        self.entry_buscar.pack(side="left", padx=(0, 10))
+        self.entry_buscar.pack(side="left", padx=(20, 0), expand=True, anchor="center",fill="both")
         self.entry_buscar.bind("<KeyRelease>", self.mostrar_sugerencias)
  
         # botón para confirmar la búsqueda
-        boton_buscar = ctk.CTkButton(frame_buscar, text="Buscar", command=lambda: self.mostrar_favoritos(self.entry_buscar.get()), fg_color=self.colors["gold"], text_color="black")
+        boton_buscar = ctk.CTkButton(
+            frame_buscar, text="Buscar",
+            command=lambda: self.mostrar_favoritos(self.entry_buscar.get()),
+            fg_color=self.colors["gold"],
+            text_color="black",
+            width=100
+            )
         
-        boton_buscar.pack(side="left")
+        boton_buscar.pack(padx = (10,20),side="left", anchor="center",fill="both")
  
-        # frame para la lista de vinos favoritos
+        # Frame para la lista de vinos favoritos
         lista_vinos_frame = ctk.CTkFrame(self.frame_favts, fg_color=self.colors["DARK_BURGUNDY"])
         lista_vinos_frame.pack(fill="both", expand=True, padx=10, pady=10)
- 
-        # scrollbar para la lista de vinos favoritos
+
+        # Scrollbar para la lista de vinos favoritos
         scrollbar = ctk.CTkScrollbar(lista_vinos_frame, width=10)
         scrollbar.pack(side="right", fill="y")
- 
-        # canvas para contener los vinos favoritos y permitir scroll
+
+        # Canvas para contener los vinos favoritos y permitir scroll
         self.canvas_vinos = ctk.CTkCanvas(lista_vinos_frame, bg=self.colors["DARK_BURGUNDY"], highlightthickness=0)
         self.canvas_vinos.pack(side="left", fill="both", expand=True)
- 
-        # configurar el scrollbar
+
+        # Configurar el scrollbar
         scrollbar.configure(command=self.canvas_vinos.yview)
         self.canvas_vinos.configure(yscrollcommand=scrollbar.set)
- 
-        # frame interno para los vinos favoritos
+
+        # Frame interno para los vinos favoritos
         self.frame_vinos_interno = ctk.CTkFrame(self.canvas_vinos, fg_color=self.colors["DARK_BURGUNDY"])
         self.canvas_vinos.create_window((0, 0), window=self.frame_vinos_interno, anchor="nw")
  
@@ -249,7 +264,12 @@ class FavtsPrograma:
         self.slider_estrellas.set(3)
         self.slider_estrellas.grid(row=2, column=1, padx=5, pady=5, sticky="w")
  
-        self.label_estrellas_valor = ctk.CTkLabel(self.frame_flotante, text="★★★", text_color=self.colors["gold"], font=('Arial', 16))
+        self.label_estrellas_valor = ctk.CTkLabel(
+            self.frame_flotante,
+            text="★★★",
+            text_color=self.colors["gold"],
+            font=('Arial', 16)
+            )
         self.label_estrellas_valor.grid(row=3, column=0, columnspan=2, pady=5)
  
         boton_agregar = ctk.CTkButton(
@@ -277,12 +297,19 @@ class FavtsPrograma:
         )
         boton_abrir_agregar.pack(pady=10)
  
-        # función para actualizar el tamaño del canvas
+        # función para actualizar el tamaño del frame interno
+        def actualizar_tamanio_frame(event):
+            canvas_width = event.width
+            self.canvas_vinos.itemconfig(self.canvas_vinos_window, width=canvas_width)
+
+        self.canvas_vinos_window = self.canvas_vinos.create_window((0, 0), window=self.frame_vinos_interno, anchor="nw")
+        self.canvas_vinos.bind("<Configure>", actualizar_tamanio_frame)
+
+        # función para actualizar el área de scroll del canvas
         def actualizar_scrollregion(event):
             self.canvas_vinos.configure(scrollregion=self.canvas_vinos.bbox("all"))
- 
+
         self.frame_vinos_interno.bind("<Configure>", actualizar_scrollregion)
- 
     def actualizar_label_estrellas(self, value):
         estrellas = "★" * int(round(float(value)))
         self.label_estrellas_valor.configure(text=estrellas)

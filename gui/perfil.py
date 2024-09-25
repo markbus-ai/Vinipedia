@@ -26,6 +26,7 @@ class WineAppMobileGUI:
         self.ubi_x=(self.root.winfo_screenwidth() // 2) - (self.x_root // 2)  
         self.ubi_y=(self.root.winfo_screenheight() // 4) - (self.y_root // 4)
         self.root.geometry(f"{self.x_root}x{self.y_root}+{self.ubi_x}+{self.ubi_y}")
+        self.root.after(1,self.ventana_max)
         self.user = user
         print("USER: ",self.user)
 
@@ -42,6 +43,9 @@ class WineAppMobileGUI:
         self.layout_widgets()
         self.root.after(100, self.load_reviews)
 
+    def ventana_max(self):
+        self.root.state("zoom")
+ 
     def create_widgets(self):
         # Main content frame
         self.main_frame = ctk.CTkFrame(
@@ -251,7 +255,16 @@ class WineAppMobileGUI:
 
     def display_reviews(self, reviews):
         """ Mostrar solo las últimas dos reseñas """
+
+        # Limpiar los textboxes anteriores
+        if hasattr(self, 'review_boxes'):
+            for box in self.review_boxes:
+                box.pack_forget()
+
+        # Reiniciar la lista de review_boxes
         self.review_boxes = []
+
+        # Mostrar las dos últimas reseñas
         reviews_to_display = reviews[-2:]  # Las dos últimas reseñas
         for review in reviews_to_display:
             box = ctk.CTkTextbox(
@@ -263,6 +276,8 @@ class WineAppMobileGUI:
             )
             box.insert(ctk.END, f"{review['wine_name']} ({review['year']}) - {review['review_text']}")
             box.pack(fill="x", pady=2)
+
+            # Añadir el box a la lista
             self.review_boxes.append(box)
 
 #Review
@@ -334,6 +349,8 @@ class WineAppMobileGUI:
 
             # Actualizar las reseñas mostradas
             self.load_reviews()  # Agregar esta línea
+            self.add_review_frame.place_forget()
+            
 
     def save_reviews(self, reviews):
         """ Guardar las reseñas en un archivo JSON """
