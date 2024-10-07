@@ -2,3 +2,4 @@
 ('Chardonnay Gran Reserva', 'Blanco', '2019', 'Viña Concha y Toro', 'Valle Central', 'Chile', '18.50', '', 3)
 ('Chardonnay Gran Reserva', 'Blanco', '2019', 'Viña Concha y Toro', 'Valle Central', 'Chile', '18.50', '', 2)
 ('Chardonnay Gran Reserva', 'Blanco', '2019', 'Viña Concha y Toro', 'Valle Central', 'Chile', '18.50', '', 3)
+('Sauvignon Blanc', 'Blanco', '2020', 'Cloudy Bay', 'Marlborough', 'Nueva Zelanda', '22.99', '', 1)

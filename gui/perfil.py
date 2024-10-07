@@ -98,14 +98,16 @@ class WineAppMobileGUI:
         self.confirm_user()  # muestra label
 
         # Favorite Wine
-        self.fav_wine_entry = ctk.CTkEntry(
-            self.main_frame,
-            placeholder_text="Vino Favorito",
-            font=("Helvetica", 14),
-            width=250,
-            fg_color=self.colors["cream"],
-            text_color=self.colors["DARK_BURGUNDY"],
+        self.show_fav_vino = ctk.CTkLabel(
+            self.show_name_frame,
+            text= f"Vino Favorito: {user_data["fav_wine"]}",                      
+            height=80,
+            font=("Helvetica", 24,"bold"),
+            width=300,
+            fg_color=self.colors["DARK_BURGUNDY"],
+            text_color=self.colors["gold"],
         )
+
 
         # About
         self.about_frame = ctk.CTkFrame(self.main_frame, fg_color="transparent")
@@ -178,7 +180,7 @@ class WineAppMobileGUI:
     def confirm_user(self):    
         
         if self.user is not None:                            
-            texto_confirm = self.user["name"]                  
+            texto_confirm = f"Hola {self.user["name"]}!"                  
         else:
             texto_confirm = "Sin User"
         
@@ -196,9 +198,9 @@ class WineAppMobileGUI:
 
     def layout_widgets(self):
         '''self.show_name.place(relx=0.5, rely=0.45, anchor="center")'''
-        self.show_name_frame.place(relx=0.5, rely=0.45, anchor="center")
+        self.show_name_frame.place(relx=0.5, rely=0.49, anchor="center")
         self.show_name.pack()
-        self.fav_wine_entry.place(relx=0.5, rely=0.53, anchor="center")
+        self.show_fav_vino.pack()
 
         self.about_frame.place(relx=0.5, rely=0.65, anchor="center", relwidth=0.9)
         self.about_label.pack(anchor="w")
@@ -410,7 +412,7 @@ if __name__ == "__main__":
     user_data = {
         "name": "Ramiro",  
         "bio": "Me encanta el vino tinto y tengo una colección de vinos internacionales.",
-        "fav_wine": "Merlot",
+        "fav_wine": "Malbec",
     }
 
     app = WineAppMobileGUI(user=user_data)

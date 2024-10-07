@@ -164,8 +164,9 @@ class FavtsPrograma:
             corner_radius=5,
             command=lambda :show_perfil_frame(self.frame_favts),
             width=0,
-            fg_color=self.colors["gold"],
-            text_color="black"
+            fg_color=self.colors["LIGHT_BURGUNDY"],
+            text_color="white",
+            hover_color=self.colors["gold"]
             )
         btn_back.pack(side="left")
  
@@ -197,9 +198,10 @@ class FavtsPrograma:
         boton_buscar = ctk.CTkButton(
             frame_buscar, text="Buscar",
             command=lambda: self.mostrar_favoritos(self.entry_buscar.get()),
-            fg_color=self.colors["gold"],
-            text_color="black",
-            width=100
+            text_color="white",
+            width=100,
+            fg_color=self.colors["LIGHT_BURGUNDY"],
+            hover_color=self.colors["gold"]
             )
         
         boton_buscar.pack(padx = (10,20),side="left", anchor="center",fill="both")
@@ -209,7 +211,7 @@ class FavtsPrograma:
         lista_vinos_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
         # Scrollbar para la lista de vinos favoritos
-        scrollbar = ctk.CTkScrollbar(lista_vinos_frame, width=10)
+        scrollbar = ctk.CTkScrollbar(lista_vinos_frame, width = 18)
         scrollbar.pack(side="right", fill="y")
 
         # Canvas para contener los vinos favoritos y permitir scroll
@@ -237,7 +239,7 @@ class FavtsPrograma:
             self.frame_flotante,
             text="Agregar Nuevo Vino",
             font=('Arial', 16, 'bold'),
-            text_color="white"
+            text_color="white",
         )
         label_titulo_agregar.grid(row=0, column=0, columnspan=2, pady=10)
  
@@ -289,9 +291,9 @@ class FavtsPrograma:
             self.frame_favts,
             text="Agregar Nuevo Vino",
             command=self.mostrar_frame_agregar_vino,
-            fg_color=self.colors["gold"],
-            text_color="black",
-            hover_color=self.colors["LIGHT_BURGUNDY"],
+            fg_color=self.colors["LIGHT_BURGUNDY"],
+            text_color="white",
+            hover_color=self.colors["gold"],
             width=200,
             font=('Arial', 12, 'bold')
         )
