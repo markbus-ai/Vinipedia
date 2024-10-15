@@ -14,6 +14,7 @@ LIGHT_BURGUNDY = "#800020"
 GOLD = "#FFD700"
 CREAM = "#FFFDD0"
 
+
 class WineAppMobileGUI:
     def __init__(self, user = None):
         ctk.set_appearance_mode("light")
@@ -62,37 +63,7 @@ class WineAppMobileGUI:
         )
         self.dropdown_menu.place(x=10, y=10)
 
-        # Profile Photo
-        self.photo_frame = ctk.CTkFrame(
-            self.main_frame,
-            width=150,
-            height=150,
-            corner_radius=75,  # Ensures the frame is circular
-            fg_color=self.colors["DARK_BURGUNDY"],
-        )
-        self.photo_frame.place(relx=0.5, rely=0.2, anchor="center")
-
-        self.canvas = ctk.CTkCanvas(
-            self.photo_frame,
-            width=150,
-            height=150,
-            bg=self.colors["DARK_BURGUNDY"],
-            highlightthickness=0,
-        )
-        self.canvas.pack(fill="both", expand=True)
-
-        # Cargar la imagen predeterminada
-        self.load_default_photo()
-
-        # Load profile photo button
-        self.load_photo_button = ctk.CTkButton(
-            self.main_frame,
-            text="Cargar Imagen",
-            command=self.load_photo,
-            fg_color=self.colors["LIGHT_BURGUNDY"],
-            hover_color=self.colors["gold"],
-        )
-        self.load_photo_button.place(relx=0.5, rely=0.35, anchor="center")
+        self.photo_main(self.main_frame)
 
         # Name
         self.confirm_user()  # muestra label
@@ -387,17 +358,51 @@ class WineAppMobileGUI:
         """ Cerrar el frame si se hace clic fuera de él """
         widget = event.widget
         if widget not in frame.winfo_children() and widget != frame:
-            frame.place_forget()
+            frame.place_forget() 
+    
+    def photo_main(self,frame_main):
+        # Profile Photo
+        self.photo_frame = ctk.CTkFrame(
+            frame_main,
+            width=150,
+            height=150,
+            corner_radius=75,  # Ensures the frame is circular
+            fg_color=self.colors["DARK_BURGUNDY"],
+        )
+        self.photo_frame.place(relx=0.5, rely=0.2, anchor="center")
 
+        self.canvas = ctk.CTkCanvas(
+            self.photo_frame,
+            width=150,
+            height=150,
+            bg=self.colors["DARK_BURGUNDY"],
+            highlightthickness=0,
+        )
+        self.canvas.pack(fill="both", expand=True)
+
+        # Cargar la imagen predeterminada
+        self.load_default_photo()
+
+        # Load profile photo button
+        self.load_photo_button = ctk.CTkButton(
+            frame_main,
+            text="Cargar Imagen",
+            command=self.load_photo,
+            fg_color=self.colors["LIGHT_BURGUNDY"],
+            hover_color=self.colors["gold"],
+        )
+        self.load_photo_button.place(relx=0.5, rely=0.35, anchor="center")
+        
+    
 #Mostrar Ventanas
     def show_favs(self):
         self.main_frame.pack_forget()
         self.comp = FavtsPrograma(self.root,self.show_main_window)
-        
+
     def show_perfil(self):
         self.main_frame.pack_forget()
-        self.comp = Perfil_Programa(self.root,self.show_main_window,self.load_photo)
-    
+        self.comp = Perfil_Programa(self.root, self.show_main_window, user_data)
+
     def show_main_window(self,frame_favts):
         frame_favts.pack_forget()
         self.create_widgets()
@@ -407,17 +412,12 @@ class WineAppMobileGUI:
 
     def run(self):
         self.root.mainloop()
-
 if __name__ == "__main__":
     user_data = {
-        "name": "Ramiro",  
-        "bio": "Me encanta el vino tinto y tengo una colección de vinos internacionales.",
-        "fav_wine": "Malbec",
-    }
-
+    "name": "Ramiro",  
+    "bio": "Me encanta el vino tinto y tengo una colección de vinos internacionales.",
+    "fav_wine": "Malbec",
+}
     app = WineAppMobileGUI(user=user_data)
     app.root.mainloop()
-    
-    
-    
-    
+
